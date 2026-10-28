@@ -1,0 +1,21 @@
+# dependencies
+node_modules/
+
+# builds
+.next/
+out/
+build/
+*.tsbuildinfo
+next-env.d.ts
+
+# env files (secrets). Templates are committed as .env.example
+.env
+.env.*
+!.env.example
+
+# misc
+.DS_Store
+*.pem
+npm-debug.log*
+.pnpm-debug.log*
+.vercel

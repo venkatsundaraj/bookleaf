@@ -1,0 +1,25 @@
+# The database is external (managed Postgres): set DATABASE_URL in server/.env.
+services:
+  server:
+    build: ./server
+    env_file: ./server/.env
+    environment:
+      NODE_ENV: production
+      PORT: 8000
+    ports:
+      - "8000:8000"
+    restart: unless-stopped
+
+  client:
+    build:
+      context: ./client
+      args:
+        BACKEND_URL: http://server:8000
+    environment:
+      # Read at request time by server components.
+      BACKEND_URL: http://server:8000
+    ports:
+      - "3000:3000"
+    depends_on:
+      - server
+    restart: unless-stopped

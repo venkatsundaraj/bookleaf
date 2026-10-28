@@ -1,0 +1,6 @@
+/* Tailwind without Preflight (its base reset). Preflight strips buttons, inputs,
+   headings and lists down to plain text; leaving it out keeps the browser's
+   native look, so we only add layout utilities on top. */
+@layer theme, base, components, utilities;
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/utilities.css" layer(utilities);
