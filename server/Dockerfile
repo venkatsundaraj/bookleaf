@@ -10,8 +10,8 @@ COPY . .
 
 ENV NODE_ENV=production
 ENV HOST=0.0.0.0
-ENV PORT=8000
-EXPOSE 8000
+ENV PORT=8001
+EXPOSE 8001
 
 # Node 24 runs the .ts files directly.
 CMD ["node", "index.ts"]
