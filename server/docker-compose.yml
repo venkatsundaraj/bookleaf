@@ -12,7 +12,7 @@ services:
       OPENAI_CLASSIFY_MODEL: ${OPENAI_CLASSIFY_MODEL:-gpt-4o-mini}
       OPENAI_DRAFT_MODEL: ${OPENAI_DRAFT_MODEL:-gpt-4o-mini}
       NODE_ENV: production
-      PORT: 8000
+      PORT: 8001
     ports:
-      - "8000:8000"
+      - "8001:8000"
     restart: unless-stopped
