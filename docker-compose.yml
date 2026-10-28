@@ -1,9 +1,15 @@
-# The database is external (managed Postgres): set DATABASE_URL in server/.env.
+# The database is external (managed Postgres). Secrets come from the shell
+# (or the hosting platform's env settings) at `docker compose up` time.
 services:
   server:
-    build: ./server
-    env_file: ./server/.env
+    build:
+      context: ./server
     environment:
+      DATABASE_URL: ${DATABASE_URL:?set DATABASE_URL}
+      AUTH_SECRET: ${AUTH_SECRET:?set AUTH_SECRET}
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      OPENAI_CLASSIFY_MODEL: ${OPENAI_CLASSIFY_MODEL:-gpt-4o-mini}
+      OPENAI_DRAFT_MODEL: ${OPENAI_DRAFT_MODEL:-gpt-4o-mini}
       NODE_ENV: production
       PORT: 8000
     ports:
@@ -14,6 +20,7 @@ services:
     build:
       context: ./client
       args:
+        # Baked into the /api rewrite at build time.
         BACKEND_URL: http://server:8000
     environment:
       # Read at request time by server components.

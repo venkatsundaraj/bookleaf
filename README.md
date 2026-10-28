@@ -45,12 +45,17 @@ pnpm dev                      # http://localhost:3000
 
 ### With Docker
 
-The compose file runs the API and the web app. The database is external: point `DATABASE_URL` in `server/.env` at your Postgres instance.
+The compose file runs the API and the web app. The database is external. Configuration is passed as environment variables, not an env file:
 
 ```bash
+export DATABASE_URL=postgres://...  AUTH_SECRET=...  OPENAI_API_KEY=sk-...
 docker compose up --build                            # client :3000, server :8000
 docker compose run --rm server node app/lib/seed.ts  # seed once
 ```
+
+`docker compose up` stops with a clear message if `DATABASE_URL` or `AUTH_SECRET` is missing. `OPENAI_API_KEY` is optional: without it, the AI features fail gracefully.
+
+The container does not run migrations. Apply them yourself with `pnpm db:migrate` before the first start.
 
 The server container applies migrations on every start before it boots.
 

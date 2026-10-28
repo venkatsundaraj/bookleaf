@@ -34,11 +34,13 @@ app.use((err: any, req: Request, res: Response, next: NextFunction) => {
 });
 
 const PORT = Number(process.env.PORT ?? 8000);
+// 0.0.0.0 so the API is reachable from outside its container.
+const HOST = process.env.HOST ?? "0.0.0.0";
 
-app.listen(PORT, async () => {
+app.listen(PORT, HOST, async () => {
   try {
     await db.execute("SELECT 1;");
-    console.log(`server started on port ${PORT}`);
+    console.log(`server started on http://${HOST}:${PORT}`);
   } catch (err) {
     console.log(err);
   }
